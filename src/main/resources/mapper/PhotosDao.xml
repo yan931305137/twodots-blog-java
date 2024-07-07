@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.twodots.blog.dao.PhotosDao">
+
+    <!--    查询相册内的照片-->
+    <select id="getPhotos" resultType="com.twodots.blog.entity.Photos">
+        select photo_id, photo_name, photo_save_name, photo_introduction, photo_filming_time, albums_tag
+        from photos
+        where photos.albums_tag = #{album_id}
+        order by photo_filming_time desc, photo_id desc
+        limit #{page}, #{pageSize}
+    </select>
+<!--    查询相册内照片总数-->
+    <select id="getPhotoCountById" resultType="java.lang.Integer">
+        select COUNT(*) from photos where albums_tag=#{album_id}
+    </select>
+
+    <!--    根据相册ID查照片-->
+    <select id="getPhotoById" resultType="com.twodots.blog.entity.Photos">
+        select * from photos where `albums_tag` = #{albums_tag};
+    </select>
+
+    <!--    添加照片-->
+    <insert id="savePhotos" parameterType="com.twodots.blog.entity.Photos">
+        INSERT INTO `photos`(`photo_name`, `photo_introduction`, `photo_filming_time`, `albums_tag`, `photo_save_name`)
+        VALUES (#{photo_name}, #{photo_introduction}, #{photo_filming_time}, #{albums_tag}, #{photo_save_name});
+    </insert>
+
+<!--    修改照片-->
+    <update id="putPhotos" parameterType="com.twodots.blog.entity.Photos">
+        UPDATE `photos`
+        SET `photo_name` = #{photo_name}, `photo_introduction` = #{photo_introduction}, `photo_filming_time` = #{photo_filming_time}, `albums_tag` = #{albums_tag}
+        WHERE `photo_id` = #{photo_id};
+    </update>
+
+<!--    删除照片-->
+    <delete id="deletePhotos" parameterType="java.lang.Integer">
+        delete from photos where photo_id=#{photo_id}
+    </delete>
+
+    <!--    查询照片文件名-->
+    <select id="getPhotoNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select photo_save_name from photos where photo_id=#{photo_id}
+    </select>
+
+</mapper>

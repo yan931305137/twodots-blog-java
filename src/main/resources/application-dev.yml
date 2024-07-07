@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      max-request-size: 500MB
+      max-file-size: 50MB
+
+server:
+  port: 8081
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    aggressive-lazy-loading: true
+
+
+img:
+  dir:
+    C:\Users\yj998\OneDrive\桌面\twodost-blog-java\src\main\resources\img\
+
+logging:
+  level:
+    root: info
+    com.twodots: debug
+  file:
+    path: log
+
